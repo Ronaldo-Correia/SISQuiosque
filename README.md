@@ -41,4 +41,5 @@ Visualização da lista de pedidos.
 Alteração do status dos pedidos (ex: "Em preparo", "Pronto", "Entregue"). 
 Confirmação da entrega e do pagamento.
 
-* 6. Armazenamento e Dados 
+* 5. Armazenamento e Dados 
+Persistir todos os pedidos em banco de dados relacional, garantindo integridade e histórico de transações. 
