@@ -12,8 +12,6 @@ import com.ifba.SISQuiosque.repository.PapelRepository;
 import com.ifba.SISQuiosque.repository.UsuarioRepository;
 import com.ifba.SISQuiosque.service.UsuarioService;
 
-
-
 import java.util.Set;
 
 @Service
