@@ -1,7 +1,8 @@
 :root {
   --white: #ffffff;
-  --primary: #325cc8;
-  --primary-dark: #222d64;
+  --primary: #BF303C;
+  --primary-dark: #F28A2E;
+  --primary-yellow: #f2c029;
   --secondary: #4caf50;
   --danger: #f44336;
   --warning: #ff9800;
@@ -197,10 +198,10 @@ button[type="paciente-submit"] {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
+    font-family: 'Poppins', sans-serif;
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -236,7 +237,7 @@ h1,
 h2,
 h3,
 h4 {
-  color: var(--gray-dark);
+  color: var(--primary-yellow);
   margin-bottom: 1rem;
 }
 
@@ -1006,7 +1007,7 @@ input[readonly] {
 h2 {
   grid-column: span 2;
   text-align: center;
-  color: white;
+  color: var(--primary-yellow);
   margin-bottom: 20px;
   font-size: 2rem;
 }
@@ -1352,7 +1353,5 @@ textarea {
     padding: 1.5rem;
   }
 
-  h2 {
-    font-size: 1.5rem;
-  }
+ 
 }

@@ -12,7 +12,7 @@ public class HomeController {
 
     @GetMapping
     public String index() {
-        return "index";  
+        return "layout/index";  
     }
 
     // Adicione este método para o health check do Railway
