@@ -1,0 +1,67 @@
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fff9f4;
+        }
+        header {
+            background-color: #ff914d;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        .menu-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            width: 220px;
+            padding: 1rem;
+            text-align: center;
+        }
+        .card img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .card h3 {
+            margin-top: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+        .card button {
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: #ff914d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .cart {
+            padding: 2rem;
+            background-color: #fff3e6;
+            border-top: 2px solid #ff914d;
+        }
+        .cart h2 {
+            margin-bottom: 1rem;
+        }
+        .cart ul {
+            list-style: none;
+            padding: 0;
+        }
+        .cart li {
+            margin-bottom: 0.5rem;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 1rem;
+        }

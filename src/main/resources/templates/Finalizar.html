@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Finalizar Pedido</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    h1 {
+      text-align: center;
+    }
+    .pedido-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-align: right;
+      margin-top: 1rem;
+    }
+    .form-group {
+      margin-top: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-weight: bold;
+    }
+    #qrCodePix {
+      display: none;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    #qrCodePix img {
+      width: 200px;
+    }
+    #trocoGroup {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Finalizar Pedido</h1>
+
+  <!-- Lista dos produtos do pedido -->
+  <div id="itensPedido"></div>
+
+
+  <!-- Total do pedido -->
+  <div class="total">
+    Total: R$ <span id="totalPedido">25.00</span>
+  </div>
+
+  <!-- Escolha de pagamento -->
+  <div class="form-group">
+    <label for="formaPagamento">Forma de Pagamento:</label>
+    <select id="formaPagamento" onchange="atualizarPagamento()">
+      <option value="" disabled selected>Selecione</option>
+      <option value="DINHEIRO">Dinheiro</option>
+      <option value="PIX">Pix</option>
+      <option value="CARTAO">Cartão</option>
+    </select>
+  </div>
+
+  <!-- Se for dinheiro, exibe campo para valor pago e calcula troco -->
+  <div class="form-group" id="valorPagoGroup">
+    <label for="valorPago">Valor Pago (R$):</label>
+    <input type="number" id="valorPago" step="0.01" placeholder="Ex: 30.00" oninput="calcularTroco()">
+  </div>
+
+  <div class="form-group" id="trocoGroup">
+    <label>Troco (R$):</label>
+    <input type="text" id="troco" readonly>
+  </div>
+
+  <!-- QR Code Pix -->
+  <div id="qrCodePix">
+    <p>Escaneie o QR Code abaixo para pagar via Pix:</p>
+    <img src="qrPix.jpg" alt="QR Code Pix">
+  </div>
+
+  <!-- Botão de confirmação -->
+  <button type="button" onclick="confirmarPedido()">Confirmar Pedido</button>
+</div>
+
+<script>
+  const carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+  const itensPedidoDiv = document.getElementById('itensPedido');
+  const totalSpan = document.getElementById('totalPedido');
+
+  let total = 0;
+
+  carrinho.forEach(item => {
+    const itemDiv = document.createElement('div');
+    itemDiv.classList.add('pedido-item');
+
+    const nomeSpan = document.createElement('span');
+    nomeSpan.textContent = item.nome;
+
+    const precoSpan = document.createElement('span');
+    precoSpan.textContent = `R$ ${item.preco.toFixed(2)}`;
+
+    itemDiv.appendChild(nomeSpan);
+    itemDiv.appendChild(precoSpan);
+    itensPedidoDiv.appendChild(itemDiv);
+
+    total += item.preco;
+  });
+
+  totalSpan.textContent = total.toFixed(2);
+
+  document.getElementById('valorPagoGroup').style.display = 'none';
+
+  function atualizarPagamento() {
+    const forma = document.getElementById('formaPagamento').value;
+    const valorPagoGroup = document.getElementById('valorPagoGroup');
+    const trocoGroup = document.getElementById('trocoGroup');
+    const qrCode = document.getElementById('qrCodePix');
+
+    valorPagoGroup.style.display = forma === 'DINHEIRO' ? 'block' : 'none';
+    trocoGroup.style.display = forma === 'DINHEIRO' ? 'block' : 'none';
+    qrCode.style.display = forma === 'PIX' ? 'block' : 'none';
+
+    if (forma !== 'DINHEIRO') {
+      document.getElementById('valorPago').value = '';
+      document.getElementById('troco').value = '';
+    }
+  }
+
+  function calcularTroco() {
+    const valorPago = parseFloat(document.getElementById('valorPago').value);
+    const troco = valorPago - total;
+    document.getElementById('troco').value = troco >= 0 ? troco.toFixed(2) : '0.00';
+  }
+
+  function confirmarPedido() {
+  const formaPagamento = document.getElementById('formaPagamento').value;
+  if (!formaPagamento) {
+    alert("Selecione a forma de pagamento.");
+    return;
+  }
+  
+  const valorPago = parseFloat(document.getElementById('valorPago').value) || 0;
+  const pedido = {
+    itens: carrinho,
+    total: total,
+    formaPagamento: formaPagamento,
+    valorPago: valorPago
+  };
+
+  fetch('/api/pedidos', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(pedido)
+  })
+  .then(res => {
+    if (res.ok) {
+      alert('Pedido confirmado!');
+      localStorage.removeItem('carrinho');
+      window.location.href = '/home'; // ou página de sucesso
+    } else {
+      alert('Erro ao confirmar pedido');
+    }
+  })
+  .catch(err => alert('Erro na comunicação: ' + err));
+}
+
+</script>
+
+
+</body>
+</html>

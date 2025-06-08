@@ -19,6 +19,6 @@ public class HomeController {
     @GetMapping("/")
     @ResponseBody  // Retorno direto (não procura template)
     public String home() {
-        return "Clinic API Running";
+        return "Quiosque API Running";
     }
 }
