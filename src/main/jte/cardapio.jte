@@ -46,7 +46,7 @@
             cursor: pointer;
             margin-top: 10px;
         }
-        button:hover {
+        .click:hover {
             background-color: #F2C029;
         }
     </style>
@@ -62,25 +62,25 @@
         <img src="/img/sucoL.png" alt="Suco">
         <h3>Suco de Laranja</h3>
         <p>Natural e gelado. R$ 6,00</p>
-        <button onclick="addToCart('Suco de Laranja', 6.00)">Adicionar</button>
+        <button class="click" onclick="addToCart('Suco de Laranja', 6.00)">Adicionar</button>
     </div>
     <div class="card">
         <img src="/img/pastel.png" alt="Pastel">
         <h3>Pastel de Carne</h3>
         <p>Crocante e saboroso. R$ 7,50</p>
-        <button onclick="addToCart('Pastel de Carne', 7.50)">Adicionar</button>
+        <button class="click" onclick="addToCart('Pastel de Carne', 7.50)">Adicionar</button>
     </div>
     <div class="card">
         <img src="/img/pratoF.png" alt="PF">
         <h3>Prato Feito</h3>
         <p>Arroz, feijão, carne e salada. R$ 15,00</p>
-        <button onclick="addToCart('Prato Feito', 15.00)">Adicionar</button>
+        <button class="click" onclick="addToCart('Prato Feito', 15.00)">Adicionar</button>
     </div>
     <div class="card">
         <img src="/img/acai.png" alt="Açaí">
         <h3>Açaí no Copo</h3>
         <p>500ml com banana e granola. R$ 10,00</p>
-        <button onclick="addToCart('Açaí no Copo', 10.00)">Adicionar</button>
+        <button class="click" onclick="addToCart('Açaí no Copo', 10.00)">Adicionar</button>
     </div>
 </section>
 
@@ -89,7 +89,7 @@
     <ul id="cart-list"></ul>
     <div class="total" id="total">Total: R$ 0,00</div>
     <br>
-    <button onclick="finalizarPedido()">Fazer Pedido</button>
+    <button class="click" onclick="finalizarPedido()">Fazer Pedido</button>
 
 </section>
 
@@ -115,13 +115,12 @@
         totalDisplay.textContent = 'Total: R$ ' + total.toFixed(2);
     }
 
-    function finalizarPedido() {
+   function finalizarPedido() {
     if (cart.length === 0) {
         alert('Seu carrinho está vazio!');
         return;
     }
 
-    // Salvar no localStorage para usar na próxima tela
     localStorage.setItem('carrinho', JSON.stringify(cart));
     
     fetch('/api/carrinho/salvar', {
@@ -129,6 +128,7 @@
         headers: {
             'Content-Type': 'application/json',
         },
+        credentials: 'same-origin', // IMPORTANTE! Envia os cookies de sessão
         body: JSON.stringify(cart)
     })
     .then(response => {
@@ -143,6 +143,7 @@
         alert('Erro ao finalizar pedido: ' + error.message);
     });
 }
+
 
 </script>
 

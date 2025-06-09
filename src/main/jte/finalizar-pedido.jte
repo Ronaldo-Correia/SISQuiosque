@@ -86,7 +86,7 @@
         margin-left: 30%;
     }
 
-    button#buttonConfirmar:hover {
+    #buttonConfirmar:hover {
         background-color: #F2C029;
         transform: translateY(-2px);
     }
@@ -274,17 +274,18 @@
             return;
         }
 
-        fetch('/api/pedido/finalizar', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                itens: carrinho,
-                formaPagamento: formaPagamento,
-                valorPago: parseFloat(document.getElementById('valorPago').value) || null
-            })
-        })
+        fetch('/api/pedidos', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+        itens: carrinho,
+        formaPagamento: formaPagamento,
+        valorPago: parseFloat(document.getElementById('valorPago').value) || null
+    })
+})
+
         .then(response => {
             if (response.ok) {
                 localStorage.removeItem('carrinho');

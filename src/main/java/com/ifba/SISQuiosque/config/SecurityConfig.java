@@ -36,6 +36,7 @@ public class SecurityConfig {
                                 "/cardapio",
                                 "/h2-console/**",
                                 "/esqueci-senha",
+                                "/salvar/**",
                                 "/sucesso/**",
                                 "/solicitar-redefinicao",
                                 "/redefinir-senha",
