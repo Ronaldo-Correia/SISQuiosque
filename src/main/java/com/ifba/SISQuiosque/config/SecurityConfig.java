@@ -33,13 +33,13 @@ public class SecurityConfig {
                                 "/js/**",
                                 "/css/**",
                                 "/error",
-                                "/favicon.ico",
                                 "/cardapio",
                                 "/h2-console/**",
                                 "/esqueci-senha",
                                 "/sucesso/**",
                                 "/solicitar-redefinicao",
-                                "/redefinir-senha"
+                                "/redefinir-senha",
+                                "/finalizar-pedido"
                         ).permitAll()
                         .anyRequest().authenticated())
                 .formLogin(login -> login

@@ -9,13 +9,12 @@
         </div>
         <button class="menu-toggle" id="menu-toggle">&#9776;</button>
         <nav class="header-nav">
-            <ul id="header-nav">
+             <ul id="header-nav">
                 <li><a href="/home">Home</a></li>
                 <li><a href="/cardapio">Cardápio</a></li>
-                <li><a href="/listarPedidos">Pedidos</a></li>
-                <li><a href="/cadastrarPedido">Carrinho</a></li>
-                <li><a href="/logout">Sair</a>
-</li>
+                <li><a href="/pedidos">Pedidos</a></li>
+                <li><a href="/finalizar-pedido">Carrinho</a></li>
+                <li><a href="/logout">Sair</a></li>
             </ul>
         </nav>
     </div>

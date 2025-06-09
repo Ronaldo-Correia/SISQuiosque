@@ -5,7 +5,7 @@ import org.mapstruct.ReportingPolicy;
 import com.ifba.SISQuiosque.dto.UsuarioDTO;
 import com.ifba.SISQuiosque.entity.UsuarioEntity;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface UsuarioMapper {
     UsuarioEntity toEntity(UsuarioDTO dto);
 }
